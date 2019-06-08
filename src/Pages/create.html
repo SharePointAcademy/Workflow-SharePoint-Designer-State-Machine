@@ -1,0 +1,93 @@
+﻿<!--jquery-->
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/jquery.multifile.js"></script>
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/jquery.maskMoney.js"></script>
+
+<!--sharepoint scripts-->
+<script type="text/javascript" src="/_layouts/15/sp.init.js"></script>
+<script type="text/javascript" src="/_layouts/15/sp.runtime.js"></script>
+<script type="text/javascript" src="/_layouts/15/sp.js"></script>
+<script type="text/javascript" src="/_layouts/15/ScriptResx.ashx?name=sp.res&culture=en-us"></script>
+<script type="text/javascript" src="/_layouts/15/sp.core.js"></script>
+<script type="text/javascript" src="/_layouts/15/clienttemplates.js"></script>
+<script type="text/javascript" src="/_layouts/15/clientforms.js"></script>
+<script type="text/javascript" src="/_layouts/15/clientpeoplepicker.js"></script>
+<script type="text/javascript" src="/_layouts/15/autofill.js"></script>
+<script type="text/javascript" src="/_layouts/15/1033/sts_strings.js"></script>
+
+<!-- Add your CSS styles to the following file -->
+<link rel="Stylesheet" type="text/css" href="/workflowdeveloper/SiteAssets/Content/App.css" />
+<!--bootstrap-->
+<link rel="Stylesheet" type="text/css" href="/workflowdeveloper/SiteAssets/Content/bootstrap.min.css" />
+<!-- Add your JavaScript to the following file -->
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/Util.js"></script>
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/Reembolso/Create.js"></script>
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/Reembolso/ReembolsoController.js"></script>
+<!--bootstrap-->
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+    
+    	//habilita multiplos arquivos
+    	jQuery('#fuAnexos').MultiFile();
+    	
+    	//inicializa people picker
+        initializePeoplePicker('txtSolicitante');
+
+        jQuery("#txtValor").maskMoney({
+            prefix: "",
+            decimal: ",",
+            thousands: "."
+        });
+
+    });
+    
+</script>
+
+<div id="loading">
+    <div>
+
+    </div>
+</div>
+    
+<div class="row">
+
+    <div class="col-5">
+        <br /><br />
+        <div class="form-group">
+            <label>Titulo</label>
+            <input type="text" id="txtTitulo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label id="Solicitante">
+                Solicitante<span class="error-msg">*</span>
+            </label>
+            <div id="txtSolicitante"></div>
+        </div>
+        <div class="form-group">
+            <label>Valor</label>
+            <input type="text" id="txtValor" class="form-control" />
+        </div>
+        <div class="form-group" id="divAnexos">
+            <label>Anexos</label>
+            <input id="fuAnexos" type="file" name="fuAnexos" class="form-control maxsize-5120" accept="jpg|jpeg|doc|docx|png" maxlength="5">
+        </div>
+        
+        <button type="button" id="btnSalvar" class="btn btn-primary mr5" onclick="criarReembolso()">Salvar</button>
+        <button type="button" id="btnVoltar" class="btn btn-primary" onclick="redirecionarListaReembolso()">Voltar</button>
+    </div>
+</div>
+
+<input type="hidden" id="hdfUserID"/>
+
+<script type="text/javascript">
+		
+	jQuery(document).ready(function(){
+		
+		escondeLoading();
+		
+	});
+	
+</script>

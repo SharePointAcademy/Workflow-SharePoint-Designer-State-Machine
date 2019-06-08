@@ -1,0 +1,98 @@
+﻿<!--jquery-->
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/jquery.maskMoney.js"></script>
+<!--sharepoint scripts-->
+<script type="text/javascript" src="/_layouts/15/sp.runtime.js"></script>
+<script type="text/javascript" src="/_layouts/15/sp.js"></script>
+<script type="text/javascript" src="/_layouts/15/sp.core.js"></script>
+<script type="text/javascript" src="/_layouts/15/clienttemplates.js"></script>
+<script type="text/javascript" src="/_layouts/15/clientforms.js"></script>
+<script type="text/javascript" src="/_layouts/15/clientpeoplepicker.js"></script>
+<script type="text/javascript" src="/_layouts/15/autofill.js"></script>
+<script type="text/javascript" src="/_layouts/15/1033/sts_strings.js"></script>
+
+<!-- Add your CSS styles to the following file -->
+<link rel="Stylesheet" type="text/css" href="/workflowdeveloper/SiteAssets/Content/App.css" />
+<!--bootstrap-->
+<link rel="Stylesheet" type="text/css" href="/workflowdeveloper/SiteAssets/Content/bootstrap.min.css" />
+<!-- Add your JavaScript to the following file -->
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/Util.js"></script>
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/Reembolso/Edit.js"></script>
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/Reembolso/ReembolsoController.js"></script>
+<!--bootstrap-->
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        initializePeoplePicker('txtSolicitante');
+
+        jQuery("#txtValor").maskMoney({
+            prefix: "",
+            decimal: ",",
+            thousands: "."
+        });
+
+    });
+    
+</script>
+
+
+<div class="row">
+    <div class="col-5">
+        <h3>Solicitação de Reembolso</h3>
+        <div class="form-group">
+            <label>Titulo</label>
+            <input type="text" id="txtTitulo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label id="Solicitante">
+                Solicitante<span class="error-msg">*</span>
+            </label>
+            <input type="text" id="txtSolicitante" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Valor</label>
+            <input type="text" id="txtValor" class="form-control" />
+        </div>        
+    </div>
+    <div class="col-2">
+    	<div class="form-inline">
+			<button type="button" id="btnVoltar" class="btn btn-primary mr5" onclick="redirecionarListaReembolso()">Voltar</button>
+		</div>
+    </div>
+</div>
+<br /><br />
+<div class="row">
+	<div class="col-md-10">
+		<h3>Anexos</h3>
+		<div id="divAnexos">
+			<ul id="ulAnexos"></ul>
+		</div>
+	</div>
+</div>
+
+<br /><br />
+<div class="row">
+	<div class="col-md-10">
+		<h3>Histórico</h3>
+		<div id="divHistorico"></div>
+	</div>
+</div>
+<br><br>
+<div class="row" id="divAprovacao">
+	<div class="col-md-10">
+		<h3>Aprovação</h3>
+		<div class="form-group">
+            <label>Comentário</label>
+            <input type="text" id="txtObservacao" class="form-control" />
+        </div>
+		<div class="form-inline">
+			<button type="button" id="btnAprovar" class="btn btn-primary mr5" onclick="approveTask('Aprovada')">Aprovar</button>
+			<button type="button" id="btnReprovar" class="btn btn-danger" onclick="approveTask('Rejeitada')">Reprovar</button>
+		</div>
+	</div>
+</div>
+
+
+<input type="hidden" id="hdfUserID"/>

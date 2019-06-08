@@ -1,0 +1,39 @@
+﻿/* Place custom styles below */
+.noticia img {
+    width: 200px;
+}
+.listNoticia img {
+    width: 250px;
+    height: 120px;
+}
+.link {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.mr5 {
+    margin-right: 5px;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+#pageTitle
+{
+	display:none;
+}
+#loading{background-color: #f5f5f5;bottom: 0;left: 0;position: fixed;top: 0;width: 100%; z-index: 9999;display: block;}
+#loading div
+{
+
+background: #f5f5f5 url("../Images/loading.gif") no-repeat scroll center center / 130px auto;
+border-radius: 100%;
+box-sizing: border-box;
+height: 180px; left: 50%;
+margin-left: -90px;margin-top: -90px;
+padding-right: 10px; padding-top: 125px; 
+position: fixed; text-align: center; 
+top: 50%;width: 180px;
+
+}

@@ -1,0 +1,42 @@
+﻿<!--jquery-->
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/jquery-1.9.1.js"></script>
+<!--sharepoint scripts-->
+<script type="text/javascript" src="/_layouts/15/sp.runtime.js"></script>
+<script type="text/javascript" src="/_layouts/15/sp.js"></script>
+<meta name="WebPartPageExpansion" content="full" />
+<!-- Add your CSS styles to the following file -->
+<link rel="Stylesheet" type="text/css" href="/workflowdeveloper/SiteAssets/Content/App.css" />
+<!--bootstrap-->
+<link rel="Stylesheet" type="text/css" href="/workflowdeveloper/SiteAssets/Content/bootstrap.min.css" />
+<!-- Add your JavaScript to the following file -->
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/Util.js"></script>
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/Reembolso/List.js"></script>
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/Reembolso/Delete.js"></script>
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/Reembolso/ReembolsoController.js"></script>
+<!--bootstrap-->
+<script type="text/javascript" src="/workflowdeveloper/SiteAssets/Scripts/bootstrap.min.js"></script>
+
+
+<br />
+<br />
+<div class="row">
+    <div class="col-7">
+        <div class="form-inline">
+            <label>Digite o título </label>
+            <input type="text" id="txtTitulo" class="form-control mr5" />
+            <button type="button" id="btnPesquisar" class="btn btn-primary mr5" onclick="pesquisar()">Pesquisar</button>
+            <button type="button" id="btnSalvar" class="btn btn-success mr5" onclick="redirecionarCadastroReembolso()">Criar reembolso</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-7">
+        <br />
+        <div id="content"></div>
+        <div class="pager">
+            <button id="btnBack" type="button">< Back</button>
+            <span id="pageInfo"></span>
+            <button id="btnNext" type="button">Next ></button>
+        </div>
+    </div>
+</div>
