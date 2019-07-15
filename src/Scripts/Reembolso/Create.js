@@ -1,9 +1,14 @@
-﻿var reembolso = [];
+var reembolso = [];
 var attcount = 0;
 var arraycount = 0;
 var fileArray = []; 
 var fileCountCheck = 0;  
 var fileNames;
+
+var _itemID;
+var _workflowName = 'Reembolso de despesas v2';
+var _listID = '259D244E-7CA1-4E50-AF5F-A4FB91F842ED';
+var teste;
 
 function validarReembolso()
 {
@@ -72,7 +77,10 @@ function onQuerySucceededCreate(sender, args) {
     if (reembolso[0].Files.length != 0) 
     {  
 
-	    var id = oListItem.get_id();  
+	    var id = oListItem.get_id();
+	    teste = oListItem;
+	    _itemID = id;	       	    
+	    	    
         if (fileCountCheck <= reembolso[0].Files.length - 1) {  
             loopFileUpload(listaReembolso, id, reembolso, fileCountCheck).then(  
                 function () {  
@@ -114,7 +122,11 @@ function loopFileUpload(listaReembolso, id, reembolso, fileCountCheck) {
 
                     attcount += fileCountCheck;  
                     if (arraycount == attcount) {  
-                    	console.log("Fim do upload");   
+                    	console.log("Fim do upload"); 
+                    	
+						//inicia workflow
+	    				getWfSubscriptions();
+	     
                     	escondeLoading();
                     	redirecionarListaReembolso();                     
                     }  
@@ -224,4 +236,68 @@ function ensureUserSuccess(sender, args) {
 function onFailUser(sender, args) {
     console.log('Não foi possível recuperar o usuário: ' + args.get_message());
     dfd.reject(sender, args);
+}
+
+
+function getWfSubscriptions() {
+
+    var restUri = _spPageContextInfo.webAbsoluteUrl + "/_api/SP.WorkflowServices.WorkflowSubscriptionService.Current/EnumerateSubscriptionsByList('" + _listID + "')";
+    $.ajax({
+        url: restUri,
+        type: 'POST',
+        headers: {
+            "accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+            "X-RequestDigest": $("#__REQUESTDIGEST").val()
+        },
+        dataType: 'json',
+        success: startWorkflow,
+        error: showErrorNotification
+    });
+}
+
+
+function startWorkflow(sender, args) {
+    var itemID = _itemID;
+    teste = sender;
+    
+    for (var i = 0; i < sender.d.results.length; i++) {
+        if (sender.d.results[i].Name === _workflowName) {
+            var wfSubscription = sender.d.results[i];
+            break;
+        }
+    }
+
+    var initParams = {
+        "payload": [{
+            "Key": "Idioma",
+            "Value": "en-US",
+            "ValueType": "Edm.String"
+        }]
+    };
+    
+    var restUri = _spPageContextInfo.webAbsoluteUrl + "/_api/SP.WorkflowServices.WorkflowInstanceService.Current/StartWorkflowOnListItemBySubscriptionId(subscriptionId='" + wfSubscription.Id + "',itemId='" + itemID + "')";
+    $.ajax({
+        url: restUri,
+        type: 'POST',
+        data: JSON.stringify(initParams),
+        headers: {
+            "accept": "application/json;odata=verbose",
+            "content-type": "application/json;odata=verbose",
+            "X-RequestDigest": $("#__REQUESTDIGEST").val()
+        },
+        dataType: 'json',
+        success: workflowStarted,
+        error: showErrorNotification
+    });
+}
+
+function showErrorNotification(sender, args)
+{
+	console.log("falha ao iniciar o workflow.");
+}
+
+function workflowStarted(sender, args)
+{
+	console.log("workflow iniciado");
 }
