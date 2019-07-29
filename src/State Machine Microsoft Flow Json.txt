@@ -1,0 +1,97 @@
+{
+  "itemid": "@{triggerBody()?['ID']}",
+  "requester": "@{triggerBody()?['Author']?['Email']}",
+  "from": "launcher",
+  "response": ""
+}
+
+
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "itemid": {
+            "type": "integer"
+        },
+        "requester": {
+            "type": "string"
+        },
+        "approver": {
+            "type": "string"
+        },
+        "stagename": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "requester",
+        "itemid",
+        "approver",
+        "stagename"
+    ]
+}
+
+
+{
+  "itemid": "@{triggerBody()['itemid']}",
+  "requester": "@{triggerBody()['requester']}",
+  "from": "@{triggerBody()['stagename']}",
+  "response": "@{toLower(body('Start_and_wait_for_an_approval')?['outcome'])}"
+}
+
+
+
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "itemid": {
+            "type": "integer"
+        },
+        "requester": {
+            "type": "string"
+        },
+        "from": {
+            "type": "string"
+        },
+        "response": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "requester",
+        "itemid",
+        "from"
+    ]
+}
+
+
+
+
+{
+  "itemid": "@{triggerBody()['itemid']}",
+  "requester": "@{triggerBody()['requester']}",
+  "approver": "@{outputs('Email_do_RH')}",
+  "stagename": "@{variables('stages')[1]}"
+}
+
+{
+  "itemid": "@{triggerBody()['itemid']}",
+  "requester": "@{triggerBody()['requester']}",
+  "approver": "@{outputs('Email_da_Tesouraria')}",
+  "stagename": "@{variables('stages')[2]}"
+}
+
+{
+  "itemid": "@{triggerBody()['itemid']}",
+  "requester": "@{triggerBody()['requester']}",
+  "approver": "@{outputs('Email_do_Solicitante')}",
+  "stagename": "@{variables('stages')[0]}"
+}
+
+{
+  "itemid": "@{triggerBody()['itemid']}",
+  "requester": "@{triggerBody()['requester']}",
+  "approver": "@{outputs('Email_do_RH')}",
+  "stagename": "@{variables('stages')[1]}"
+}
